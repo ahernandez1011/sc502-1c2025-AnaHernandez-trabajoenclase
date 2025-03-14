@@ -30,18 +30,18 @@ function saludar($nombre)
 {
     return "Hola " . $nombre;
 }
-echo saludar("Marlon") . PHP_EOL;
+echo saludar("Ana") . PHP_EOL;
 
 //funcion anonima
 $suma = function ($a, $b) {
     return $a + $b;
 };
 
-echo $suma(5, 10) . PHP_EOL;
+echo $suma(5, 10 ) . PHP_EOL;
 
 //funcion de flecha 
 $duplicar = fn($n) => $n * 2;
-echo $duplicar(10) . PHP_EOL;
+echo $duplicar(10 ) . PHP_EOL;
 
 //function integrada
 $texto = "Hola Mundo";
