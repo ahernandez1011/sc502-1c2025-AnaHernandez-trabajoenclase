@@ -54,7 +54,7 @@
          return false;
      }
  }
- 
+
  function deleteTask($id)  
  {
      global $pdo;
