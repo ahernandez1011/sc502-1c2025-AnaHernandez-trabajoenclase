@@ -70,3 +70,9 @@
      }
  }
 
+ $method = $_SERVER['REQUEST_METHOD'];
+ header('Content-Type: application/json');
+ 
+ function getJsonInput(){
+     return json_decode(file_get_contents("php://input"), associative:true);
+ }

@@ -12,6 +12,8 @@
 
      if ($user) {
         if (password_verify($password, $user['password'])) {
+            session_start();
+             $_SESSION['user_id'] = $user["id"];
              return true;
          }
      }
@@ -27,7 +29,6 @@
          $username = $_POST['email'];
          $password = $_POST['password'];
          if (login($username, $password)) {
-             session_start();
              http_response_code(200);
              echo json_encode(["message" => "Login exitoso"]);
          } else {
