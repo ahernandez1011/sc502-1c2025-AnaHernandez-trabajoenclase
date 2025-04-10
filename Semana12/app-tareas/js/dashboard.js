@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="card-body">
                     <h5 class="card-title">${task.title}</h5>
                     <p class="card-text">${task.description}</p>
-                    <p class="card-text"><small class="text-muted">Due: ${task.due_Date}</small> </p>
+                    <p class="card-text"><small class="text-muted">Due: ${task.due_date}</small> </p>
                     ${commentsList}
                      <button type="button" class="btn btn-sm btn-link add-comment"  data-id="${task.id}">Add Comment</button>
  
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
             //cargar los datos en el formulario
             document.getElementById('task-title').value = task.title;
             document.getElementById('task-desc').value = task.description;
-            document.getElementById('due-date').value = task.dueDate;
+            document.getElementById('due-date').value = task.due_date;
             //ponerlo en modo edicion
             isEditMode = true;
             edittingId = taskId;
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
  
     })
  
-    document.getElementById('task-form').addEventListener('submit', function (e) {
+    document.getElementById('task-form').addEventListener('submit', async function (e) {
         e.preventDefault();
  
         const title = document.getElementById("task-title").value;
@@ -160,11 +160,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const dueDate = document.getElementById("due-date").value;
  
         if (isEditMode) {
-            //todo editar
-            const task = tasks.find(t => t.id === edittingId);
-            task.title = title;
-            task.description = description;
-            task.dueDate = dueDate;
+            const response = await fetch(`${API_URL}?id=${edittingId}`,
+                {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title: title, description: description, due_date: dueDate })
+                });
+            if (!response.ok) {
+                console.error("no se pudo actualizar la tarea");
+            }
+
         } else {
             const newTask = {
                 id: tasks.length + 1,
