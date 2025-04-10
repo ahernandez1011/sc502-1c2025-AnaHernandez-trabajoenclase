@@ -175,12 +175,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         } else {
             const newTask = {
-                id: tasks.length + 1,
                 title: title,
                 description: description,
-                dueDate: dueDate
+                due_date: dueDate
             };
-            tasks.push(newTask);
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers:{
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify(newTask),
+                credentials: 'include'
+            });
+            if(!response.ok){
+                console.error("No se pudo agregar la tarea");
+            }
         }
         const modal = bootstrap.Modal.getInstance(document.getElementById('taskModal'));
         modal.hide();
