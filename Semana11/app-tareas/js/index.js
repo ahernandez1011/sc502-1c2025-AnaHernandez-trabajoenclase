@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+
         //envia los datos al servidor usando POST y el HEADER con el formato de dato que se va a enviar
         const response = await fetch('backend/login.php', {
             method: 'POST',
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function(){
             },
             body: new URLSearchParams({ email: email, password: password })
         });
+        
         //obtenemos la respuesta del servidor en formato JSON
         const result = await response.json();
 

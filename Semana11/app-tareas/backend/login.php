@@ -18,7 +18,6 @@
      return false;
  }
 
- 
  //guardar el tipo de solicitud.
  $method = $_SERVER["REQUEST_METHOD"];
  
