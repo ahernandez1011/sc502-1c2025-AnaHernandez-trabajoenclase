@@ -114,13 +114,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
  
- 
-    function handleDeleteTask(event) {
-        // alert(event.target.dataset.id);
+
+    async function handleDeleteTask(event) {
         const id = parseInt(event.target.dataset.id);
-        const index = tasks.findIndex(t => t.id === id);
-        tasks.splice(index, 1);
-        loadTasks();
+        try{
+            // API_URL + '?id=' + id; otra forma de concatenar en JS
+            const response = await fetch(`${API_URL}?id=${id}`,{credentials: 'include', method:'DELETE'});
+            if(response.ok){
+                loadTasks();
+            }else{
+                console.error("Problema al eliminar la tarea");
+            }
+        }catch(err){
+            console.error(err);
+        }   
     }
  
     document.getElementById('comment-form').addEventListener('submit', function (e) {
